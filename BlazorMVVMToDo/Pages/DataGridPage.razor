@@ -1,0 +1,52 @@
+﻿@page "/grid"
+
+@using BlazorMVVMToDo.ViewModels
+@using BlazorMVVMToDo.Components
+@using System.ComponentModel
+@using BlazorMVVMToDo.Context
+@using BlazorMVVMToDo.Data
+
+@inject IDataGridViewModel ViewModel
+@inject JASContext context
+@implements IDisposable
+
+
+<CascadingValue Value=@ViewModel Name="ViewModel">
+    <BlazorMVVMToDo.Components.DataGrid />
+</CascadingValue>
+
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await ViewModel.Initialize(context);
+
+        ViewModel.PropertyChanged += async (sender, e) =>
+        {
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
+        };
+        await base.OnInitializedAsync();
+    }
+
+    async void OnPropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+    {
+        await InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+    }
+
+    public void Dispose()
+    {
+        ViewModel.PropertyChanged -= OnPropertyChangedHandler;
+    }
+}
