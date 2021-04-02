@@ -1,37 +1,37 @@
-﻿using BlazorMVVMToDo.Data;
-using BlazorMVVMToDo.Models;
-using BlazorMVVMToDo.Context;
-using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using BlazorMVVMToDo.Context;
+using BlazorMVVMToDo.Models;
 using Telerik.Blazor.Components;
 
-namespace BlazorMVVMToDo.ViewModels {
+namespace BlazorMVVMToDo.ViewModels
+{
 
-    public interface IDataGridViewModel {
+  public interface IDataGridViewModel
+  {
 
-        bool IsBusy { get; set; }
-        int DataItems { get; }
+    bool IsBusy { get; set; }
+    int DataItems { get; }
 
-        JASContext Context { get; set; }
-        Issue issue { get; set; }
-        List<Issue> IsssueList { get; }
+    JASContext Context { get; set; }
+    Issue issue { get; set; }
+    List<Issue> IsssueList { get; }
 
-        ObservableCollection<Issue> Data { get; }
+    ObservableCollection<Issue> Data { get; }
 
-        event PropertyChangedEventHandler PropertyChanged;
+    event PropertyChangedEventHandler PropertyChanged;
 
-        Task Initialize(JASContext context);
-        Task FetchIssues();
+    Task Initialize(JASContext context);
+    Task FetchIssues();
 
-        void CreateIssue(GridCommandEventArgs args);
+    void CreateIssue(GridCommandEventArgs args);
 
-        void UpdateIssue(GridCommandEventArgs args);
+    void UpdateIssue(GridCommandEventArgs args);
 
-        void DeleteIssue(GridCommandEventArgs args);
+    void DeleteIssue(GridCommandEventArgs args);
 
-        void DeleteRandomIssue();
-    }
+    void DeleteRandomIssue();
+  }
 }
